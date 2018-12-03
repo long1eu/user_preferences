@@ -46,10 +46,11 @@ abstract class UserPreferences {
   /// Returns the single [UserPreferences] instance that can be used to
   /// retrieve and modify the preference values.
   static Future<UserPreferences> getInstance(
-      [String name = _defaultName]) async {
+      [String name = _defaultName, Directory baseDir]) async {
     if (_UserPreferencesImpl.instances[name] != null) {
       return _UserPreferencesImpl.instances[name];
     } else {
+      _baseDir = baseDir;
       if (_baseDir == null) {
         throw StateError('Please provide a base directory.');
       }
