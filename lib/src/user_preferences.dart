@@ -90,7 +90,9 @@ abstract class UserPreferences {
         throw StateError('Please provide a base directory.');
       }
 
-      return _UserPreferencesImpl(File('${_baseDir.path}/$_defaultName'))
+      _UserPreferencesImpl.instances[_defaultName]  =
+          _UserPreferencesImpl(File('${_baseDir.path}/$_defaultName'));
+      return _UserPreferencesImpl.instances[_defaultName]
           .completer
           .future;
     }
