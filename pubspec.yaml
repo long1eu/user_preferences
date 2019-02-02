@@ -1,6 +1,6 @@
 name: user_preferences
 description: This is a port of Android SharedPreferences, providing, a persistent store for simple data. Data is persisted to disk asynchronously.
-version: 0.1.1+3
+version: 0.1.1+4
 author: long1eu <home@long1.eu>
 homepage: https://github.com/long1eu/user_preferences
 

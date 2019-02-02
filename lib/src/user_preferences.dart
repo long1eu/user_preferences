@@ -57,6 +57,8 @@ abstract class UserPreferences {
 
       final _UserPreferencesImpl prefs =
           _UserPreferencesImpl(File('${_baseDir.path}/$_defaultName'));
+      _UserPreferencesImpl.instances[name] = prefs;
+
       await prefs.completer.future;
       return prefs;
     }
