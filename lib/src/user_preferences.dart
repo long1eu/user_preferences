@@ -45,7 +45,7 @@ abstract class UserPreferences {
   ///
   /// Returns the single [UserPreferences] instance that can be used to
   /// retrieve and modify the preference values.
-  static Future<UserPreferences> getInstance(
+  static Future<UserPreferences> initInstance(
       [String name = _defaultName, Directory baseDir]) async {
     if (_UserPreferencesImpl.instances[name] != null) {
       return _UserPreferencesImpl.instances[name];
@@ -59,6 +59,21 @@ abstract class UserPreferences {
           _UserPreferencesImpl(File('${_baseDir.path}/$_defaultName'));
       await prefs.completer.future;
       return prefs;
+    }
+  }
+
+  /// Retrieve and hold the contents of the preference file [name].
+  ///
+  /// You first must call [initInstance] with this [name] or [init] if you want
+  /// to use the [_defaultName]. If you just want the default instance, call
+  /// [init] and the use [instance] were ever you want.
+  static UserPreferences getInstance([String name = _defaultName]) {
+    if (_UserPreferencesImpl.instances[name] != null) {
+      return _UserPreferencesImpl.instances[name];
+    } else {
+      throw StateError(
+          'There are no instances with this name initialized. Please first '
+          'call [UserPreferences.initInstance($name)]');
     }
   }
 
@@ -90,11 +105,9 @@ abstract class UserPreferences {
         throw StateError('Please provide a base directory.');
       }
 
-      _UserPreferencesImpl.instances[_defaultName]  =
+      _UserPreferencesImpl.instances[_defaultName] =
           _UserPreferencesImpl(File('${_baseDir.path}/$_defaultName'));
-      return _UserPreferencesImpl.instances[_defaultName]
-          .completer
-          .future;
+      return _UserPreferencesImpl.instances[_defaultName].completer.future;
     }
   }
 
