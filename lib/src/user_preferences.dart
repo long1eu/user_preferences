@@ -50,7 +50,7 @@ abstract class UserPreferences {
     if (_UserPreferencesImpl.instances[name] != null) {
       return _UserPreferencesImpl.instances[name];
     } else {
-      _baseDir = baseDir;
+      _baseDir = baseDir ?? _baseDir;
       if (_baseDir == null) {
         throw StateError('Please provide a base directory.');
       }
